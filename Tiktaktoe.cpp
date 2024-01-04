@@ -1,4 +1,6 @@
-//Test2Q1.cpp
+// This is a program that uses C++ to create a TikTakToe.
+// mkuangdotcom 
+
 #include <iostream>
 using namespace std;
 
