@@ -48,16 +48,16 @@ int main () {
     outFile << "Sales: " << setw(10) << largest << endl << endl;
 
     outFile << "Total sales by month: " << endl;
-    outFile << setw(10) << "------" << setw(10) << "-----" << endl;
+    outFile << "Month" << setw(10) << "Sales" << endl;
+    outFile << "------" << setw(10) << "-----" << endl;
     for (int c = 0; c < MONTHS; c++) {
-        outFile << setw(10) << nameMonth[c] << "RM " << setw(10) << monthTotalSales(salesData, c) << endl;
+        outFile << nameMonth[c] << "   RM " << setw(10) << monthTotalSales(salesData, c) << endl;
     }
     outFile << endl;
 
-
-    outFile << "Total sales by store: ";
-    outFile << setw(10) << "Store" << setw(10) << "Total Sales" << endl;
-    outFile << setw(10) << "-----" << setw(10) << "-----------" << endl;
+    outFile << "Total sales by store: " << endl;
+    outFile << "Store" << setw(20) << "Total Sales" << endl;
+    outFile << "-----" << setw(20) << "-----------" << endl;
     for (int r = 0; r < STORE; r++) {
         outFile << setw(10) << store[r] << "RM" << setw(10) << storeTotalSales(salesData, r) << endl;
     }
@@ -65,7 +65,7 @@ int main () {
 
     outFile << "Profitable stores: " << endl;
     outFile << "-----------------" << endl;
-    for (int r = 0; r < STORE; r++) {
+    for (int r =0; r < STORE; r++) {
         if (storeTotalSales(salesData, r) > 600000.00)
             outFile << store[r] << endl;
     }
@@ -74,24 +74,27 @@ int main () {
 }
 
 
+
+
 void readFile(string fileName, double salesData[][MONTHS], string store[]) {
     fstream inFile(fileName, ios::in);
     int s;
 
-    if (!inFile) {
-        cout << "Error opening the file!";
-        exit(1);
-    } else {
-        for (int r = 0; r < STORE; r++) {
-            for (int c = 0; c < MONTHS; c++) {
-                inFile >> s;
-                salesData[r][c] = s * 1000.00;
-            }
+if (!inFile) {
+    cout << "Error opening the file!";
+    exit(1);
+}
+else {
+    for (int r = 0; r < STORE; r++) {
+        for (int c = 0; c < MONTHS; c++) {
+            inFile >> s;
+            salesData[r][c] = s * 1000.00;
         }
-        for (int r = 0; r < STORE; r++) {
-            inFile >> store[r];
-        }
+        inFile.ignore();
+        getline(inFile, store[r]);
     }
+}
+inFile.close();
 }
 
 double grandTotalSales(double salesData[][MONTHS]) {
