@@ -65,11 +65,10 @@ int main () {
 
     outFile << "Profitable stores: " << endl;
     outFile << "-----------------" << endl;
-    for (int r =0; r < STORE; r++) {
+    for (int r = 0; r < STORE; r++) {
         if (storeTotalSales(salesData, r) > 600000.00)
             outFile << store[r] << endl;
     }
-
     return 0;
 }
 
