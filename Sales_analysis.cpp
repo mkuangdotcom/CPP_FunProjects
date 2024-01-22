@@ -84,19 +84,20 @@ void readFile(string fileName, double salesData[][MONTHS], string store[]) {
     fstream inFile(fileName, ios::in);
     int s;
 
-if (!inFile) {
-    cout << "Error opening the file!";
-    exit(1);
-}
-else {
-    for (int c = 0; c < MONTHS; c++) {
-        for (int r = 0; r < MONTHS; r++) {
-            inFile >> s;
-            salesData[r][c] = s * 1000.00;
+    if (!inFile) {
+        cout << "Error opening the file!";
+        exit(1);
+    } else {
+        for (int r = 0; r < STORE; r++) {
+            for (int c = 0; c < MONTHS; c++) {
+                inFile >> s;
+                salesData[r][c] = s * 1000.00;
+            }
+        }
+        for (int r = 0; r < STORE; r++) {
             inFile >> store[r];
         }
     }
-}
 }
 
 double grandTotalSales(double salesData[][MONTHS]) {
