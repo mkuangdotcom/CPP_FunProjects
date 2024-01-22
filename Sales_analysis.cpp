@@ -51,7 +51,7 @@ int main () {
     outFile << setw(10) << "Month" << setw(10) << "Sales" << endl;
     outFile << setw(10) << "------" << setw(10) << "-----" << endl;
     for (int c = 0; c < MONTHS; c++) {
-        outFile << setw(10) << nameMonth[c] << "RM " << setw(10) << monthTotalSales(salesData, c) << endl;
+        outFile << setw(10) << nameMonth[c] << "RM " << setw(10) << monthTotalSales(salesData, c);
     }
     outFile << endl;
 
@@ -65,81 +65,34 @@ int main () {
 
     outFile << "Profitable stores: " << endl;
     outFile << "-----------------" << endl;
-    for (int r = 0; r < STORE; r++) {
-        if (storeTotalSales(salesData, r) > 600000.00)
-            outFile << store[r] << endl;
-    }
-    return 0;
-}
-
-
-
-
-
-Your code has a few issues, and I've corrected them below:
-
-In the readFile function, the nested loops for reading salesData and store should be separate. Also, the inner loop should iterate over the stores, not the months.
-In the averageMonthlySales function, you have declared an array avgMonth, but you are not using it. I removed it since you are calculating the average directly.
-In the monthTotalSales function, you have declared sumStore without initializing it, which can lead to unpredictable results. I initialized it to 0.0.
-In the indicesOfHighestSales function, you have used highestIndex and highestStore incorrectly. The highestIndex should correspond to the row (store), and highestStore should correspond to the column (month).
-Here is the corrected code:
-
-cpp
-Copy code
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-using namespace std;
-
-const int STORE = 5;
-const int MONTHS = 12;
-
-void readFile(string, double[][MONTHS], string[]);
-double grandTotalSales(double[][MONTHS]);
-double averageMonthlySales(double[][MONTHS]);
-double monthTotalSales(double[][MONTHS], int);
-double storeTotalSales(double[][MONTHS], int);
-void indicesOfHighestSales(double[][MONTHS], int&, int&);
-
-int main() {
-    // ... (unchanged)
-
-    outFile << setw(10) << "------" << setw(10) << "-----" << endl;
-    for (int c = 0; c < MONTHS; c++) {
-        outFile << setw(10) << nameMonth[c] << "RM " << setw(10) << monthTotalSales(salesData, c) << endl;
-    }
-    outFile << endl;
-
-    // ... (unchanged)
-
-    outFile << "Profitable stores: " << endl;
-    outFile << "-----------------" << endl;
-    for (int r = 0; r < STORE; r++) {
+    for (int r =0; r < STORE; r++) {
         if (storeTotalSales(salesData, r) > 600000.00)
             outFile << store[r] << endl;
     }
 
     return 0;
 }
+
+
+
 
 void readFile(string fileName, double salesData[][MONTHS], string store[]) {
     fstream inFile(fileName, ios::in);
     int s;
 
-    if (!inFile) {
-        cout << "Error opening the file!";
-        exit(1);
-    } else {
-        for (int r = 0; r < STORE; r++) {
-            for (int c = 0; c < MONTHS; c++) {
-                inFile >> s;
-                salesData[r][c] = s * 1000.00;
-            }
-        }
-        for (int r = 0; r < STORE; r++) {
+if (!inFile) {
+    cout << "Error opening the file!";
+    exit(1);
+}
+else {
+    for (int c = 0; c < MONTHS; c++) {
+        for (int r = 0; r < MONTHS; r++) {
+            inFile >> s;
+            salesData[r][c] = s * 1000.00;
             inFile >> store[r];
         }
     }
+}
 }
 
 double grandTotalSales(double salesData[][MONTHS]) {
