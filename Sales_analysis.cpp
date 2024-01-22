@@ -51,7 +51,7 @@ int main () {
     outFile << setw(10) << "Month" << setw(10) << "Sales" << endl;
     outFile << setw(10) << "------" << setw(10) << "-----" << endl;
     for (int c = 0; c < MONTHS; c++) {
-        outFile << setw(10) << nameMonth[c] << "RM " << setw(10) << monthTotalSales(salesData, c);
+        outFile << setw(10) << nameMonth[c] << "RM " << setw(10) << monthTotalSales(salesData, c) << endl;
     }
     outFile << endl;
 
