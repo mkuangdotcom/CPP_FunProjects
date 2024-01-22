@@ -74,12 +74,6 @@ int main () {
 }
 
 
-    return 0;
-}
-
-
-
-
 void readFile(string fileName, double salesData[][MONTHS], string store[]) {
     fstream inFile(fileName, ios::in);
     int s;
